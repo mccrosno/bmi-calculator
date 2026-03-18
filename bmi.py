@@ -15,6 +15,17 @@ def get_bmi(weight: float, height: float) -> float:
     return bmi
 
 
+def get_category(bmi: float) -> str:
+    if bmi >= 30:
+        return "Obese"
+    elif bmi >= 25:
+        return "Overweight"
+    elif bmi >= 18.5:
+        return "Normal"
+    else:
+        return "Underweight"
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Calculate BMI")
     parser.add_argument("weight", type=float, help="Weight in pounds")
@@ -22,15 +33,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     bmi = get_bmi(args.weight, args.height)
-    category = "Unknown"
-
-    if bmi >= 30:
-        category = "Obese"
-    elif bmi >= 25:
-        category = "Overweight"
-    elif bmi >= 18.5:
-        category = "Normal"
-    else:
-        category = "Underweight"
+    category = get_category(bmi)
 
     print(f"BMI: {bmi:.2f}, Category: {category}")

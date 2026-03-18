@@ -1,5 +1,5 @@
 import pytest
-from bmi import get_bmi
+from bmi import get_bmi, get_category
 
 
 def test_valid_inputs():
@@ -45,3 +45,43 @@ def test_negative_height():
 def test_both_zero():
     with pytest.raises(ValueError):
         get_bmi(0, 0)
+
+
+def test_category_underweight():
+    assert get_category(18.4) == "Underweight"
+
+
+def test_category_underweight_low():
+    assert get_category(1.0) == "Underweight"
+
+
+def test_category_normal_lower_boundary():
+    assert get_category(18.5) == "Normal"
+
+
+def test_category_normal():
+    assert get_category(21.75) == "Normal"
+
+
+def test_category_normal_upper_boundary():
+    assert get_category(24.9) == "Normal"
+
+
+def test_category_overweight_lower_boundary():
+    assert get_category(25.0) == "Overweight"
+
+
+def test_category_overweight():
+    assert get_category(27.5) == "Overweight"
+
+
+def test_category_overweight_upper_boundary():
+    assert get_category(29.9) == "Overweight"
+
+
+def test_category_obese_lower_boundary():
+    assert get_category(30.0) == "Obese"
+
+
+def test_category_obese():
+    assert get_category(35.0) == "Obese"
