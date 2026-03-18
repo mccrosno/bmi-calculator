@@ -8,6 +8,11 @@ def get_bmi(weight: float, height: float) -> float:
     if height <= 0:
         raise ValueError("Height cannot be zero or negative")
 
+    if weight > 1000:
+        raise ValueError("Weight cannot be greater than 1000 pounds")
+    if height > 1000:
+        raise ValueError("Height cannot be greater than 1000 inches")
+
     weight_in_kg = weight * 0.453592
     height_in_meters = height * 0.0254
     squared_height = height_in_meters**2

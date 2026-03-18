@@ -7,11 +7,11 @@ def test_valid_inputs():
 
 
 def test_valid_low_weight():
-    assert get_bmi(1, 65) == pytest.approx(0.17, abs=0.01)
+    assert get_bmi(0.01, 65) == pytest.approx(0.00, abs=0.01)
 
 
 def test_valid_high_weight():
-    assert get_bmi(300, 65) == pytest.approx(49.92, abs=0.01)
+    assert get_bmi(1000, 65) == pytest.approx(166.40, abs=0.01)
 
 
 def test_valid_low_height():
@@ -20,6 +20,14 @@ def test_valid_low_height():
 
 def test_valid_high_height():
     assert get_bmi(150, 108) == pytest.approx(9.04, abs=0.01)
+
+
+def test_absolute_minimum():
+    assert get_bmi(0.01, 0.01) == pytest.approx(70.32, abs=0.01)
+
+
+def test_absolute_maximum():
+    assert get_bmi(1000, 1000) == pytest.approx(0.70, abs=0.01)
 
 
 def test_zero_weight():
@@ -32,6 +40,11 @@ def test_negative_weight():
         get_bmi(-150, 65)
 
 
+def test_weight_above_max():
+    with pytest.raises(ValueError):
+        get_bmi(1001, 65)
+
+
 def test_zero_height():
     with pytest.raises(ValueError):
         get_bmi(150, 0)
@@ -40,6 +53,11 @@ def test_zero_height():
 def test_negative_height():
     with pytest.raises(ValueError):
         get_bmi(150, -65)
+
+
+def test_height_above_max():
+    with pytest.raises(ValueError):
+        get_bmi(150, 1001)
 
 
 def test_both_zero():
